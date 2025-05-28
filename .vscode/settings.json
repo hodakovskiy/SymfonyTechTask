@@ -1,0 +1,41 @@
+{
+    "php.validate.executablePath": "/usr/bin/php",
+    "php.executablePath": "/usr/bin/php",
+    "editor.formatOnSave": true,
+    "yaml.completion": false,
+    "yaml.format.enable": false,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+    },
+    "[twig]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "mblode.twig-language-2", //esbenp.prettier-vscode
+    },
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".*\\.php$", // Срабатывает для всех PHP-файлов
+                "cmd": "./vendor/bin/pint --dirty && php bin/console cache:clear --env=dev" // Пример команды для Symfony
+            },
+            {
+                "match": ".*\\.twig$", // Срабатывает для Twig-шаблонов
+                "cmd": "php bin/console lint:twig"
+            },
+            {
+                "match": ".*\\.yaml$", // Срабатывает для YAML-файлов
+                "cmd": "php bin/console lint:yaml config/" // Проверяет YAML в папке config
+            }
+        ]
+    }
+}

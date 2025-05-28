@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Головна
+{% endblock %}
+
+{% block body %}
+    <h1>Ласкаво просимо до Weather App!</h1>
+    <p>Цей застосунок показує поточну погоду по містах світу.</p>
+
+    <a href="{{ path('weather') }}">Перейти до пошуку погоди</a>
+{% endblock %}
