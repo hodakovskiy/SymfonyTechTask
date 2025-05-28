@@ -3,14 +3,13 @@
 namespace App\Tests\Service;
 
 use Psr\Log\NullLogger;
-use App\Dto\WeatherData;
+use App\Dto\Output\WeatherData;
 use App\Service\WeatherService;
 use PHPUnit\Framework\TestCase;
 use App\Exception\WeatherApiException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\Exception\TransportException;
-use App\Tests\TestUtils\BaseTestCase;
 
 /**
  * @covers \App\Service\WeatherService

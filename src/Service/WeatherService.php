@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Dto\WeatherData;
+use App\Dto\Output\WeatherData;
 use App\Exception\WeatherApiException;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -34,6 +34,10 @@ class WeatherService
         try {
             // Send request to weather API
             $response = $this->httpClient->request('GET', $url);
+
+            if ($response->getStatusCode() === 400) {
+                throw new WeatherApiException("City not found");
+            }
 
             // Validate HTTP status
             if ($response->getStatusCode() !== 200) {

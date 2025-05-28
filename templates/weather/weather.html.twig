@@ -10,11 +10,15 @@
         <button type="submit">Показати</button>
     </form>
 
-    {% for message in app.flashes('error') %}
+    {% if errors is defined and errors %}
         <div class="alert alert-danger">
-            {{ message }}
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
         </div>
-    {% endfor %}
+    {% endif %}
 
     {% if weather %}
         <div class="card">
@@ -27,7 +31,8 @@
                 <p class="card-text">Останнє оновлення: {{ weather.lastUpdated }}</p>
             </div>
         </div>
-    {% else %}
-        <p>Дані про погоду відсутні.</p>
+        
+    {% elseif app.request.method == 'POST' and errors is empty %}
+        <p class="text-muted">Дані про погоду відсутні.</p>
     {% endif %}
 {% endblock %}
