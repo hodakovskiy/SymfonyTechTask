@@ -13,8 +13,8 @@ class WeatherController extends AbstractController
 {
     public function __construct(private readonly WeatherService $weatherService) {}
 
-    #[Route('/weather', name: 'weather', methods: ['GET', 'POST'])]
-    public function weather(Request $request): Response
+    #[Route('/weather', name: 'weather_show', methods: ['GET', 'POST'])]
+    public function show(Request $request): Response
     {
         $weather = null;
         $error = null;

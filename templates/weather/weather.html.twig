@@ -1,28 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Погода{% endblock %}
+{% block title %}Пошук погоди{% endblock %}
 
 {% block body %}
     <h1>Пошук погоди</h1>
 
-    {% if error %}
-        <div style="color: red;">{{ error }}</div>
-    {% endif %}
-
-    <form method="post" action="{{ path('weather') }}">
+    <form method="post" action="{{ path('weather_show') }}">
         <input type="text" name="city" placeholder="Введіть назву міста" required>
         <button type="submit">Показати</button>
     </form>
 
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% if weather %}
-        <hr>
-        <h2>Погода в {{ weather.city }}, {{ weather.country }}</h2>
-        <ul>
-            <li>Температура: {{ weather.temperature }}°C</li>
-            <li>Стан: {{ weather.condition }}</li>
-            <li>Вологість: {{ weather.humidity }}%</li>
-            <li>Вітер: {{ weather.windSpeed }} км/год</li>
-            <li>Оновлено: {{ weather.lastUpdated }}</li>
-        </ul>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Поточна погода в {{ weather.city }}, {{ weather.country }}</h5>
+                <p class="card-text">Температура: {{ weather.temperature }}°C</p>
+                <p class="card-text">Стан: {{ weather.condition }}</p>
+                <p class="card-text">Вологість: {{ weather.humidity }}%</p>
+                <p class="card-text">Швидкість вітру: {{ weather.windSpeed }} км/год</p>
+                <p class="card-text">Останнє оновлення: {{ weather.lastUpdated }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>Дані про погоду відсутні.</p>
     {% endif %}
 {% endblock %}

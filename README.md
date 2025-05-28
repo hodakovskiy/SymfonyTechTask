@@ -52,6 +52,12 @@ chmod -R 775 vendor
 ### 6. Start local server
 
 ```bash
+symfony server:start
+```
+
+Or
+
+```bash
 php bin/console server:start --port=8000
 ```
 
@@ -64,3 +70,9 @@ php -S localhost:8000 -t public
 ### 7. Open the app in your browser
 
 Open http://localhost:8000 in your browser to see the app.
+
+### 8. Run tests
+
+```bash
+php bin/phpunit
+```
