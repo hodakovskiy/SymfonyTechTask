@@ -32,6 +32,9 @@ composer install
 ```bash
 cp .env.example .env
 WEATHER_API_KEY=your_weatherapi_key_here
+APP_LOCALE=en
+or
+APP_LOCALE=uk
 ```
 
 You can get a free API key at https://weatherapi.com
