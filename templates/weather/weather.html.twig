@@ -1,28 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Погода{% endblock %}
+{% block title %}
+    {{ 'homepage.title'|trans }}
+{% endblock %}
 
 {% block body %}
-    <h1>Пошук погоди</h1>
+<h1 class="mb-4">{{ 'weather.heading'|trans }}</h1>
 
-    {% if error %}
-        <div style="color: red;">{{ error }}</div>
-    {% endif %}
+<form method="post" action="{{ path('weather_show') }}" class="mb-4">
+    <input type="text" name="city" class="form-control mb-2" placeholder="{{ 'weather.input.placeholder'|trans }}" required>
+    <button type="submit" class="btn btn-primary">{{ 'weather.button.show'|trans }}</button>
+</form>
 
-    <form method="post" action="{{ path('weather') }}">
-        <input type="text" name="city" placeholder="Введіть назву міста" required>
-        <button type="submit">Показати</button>
-    </form>
-
-    {% if weather %}
-        <hr>
-        <h2>Погода в {{ weather.city }}, {{ weather.country }}</h2>
-        <ul>
-            <li>Температура: {{ weather.temperature }}°C</li>
-            <li>Стан: {{ weather.condition }}</li>
-            <li>Вологість: {{ weather.humidity }}%</li>
-            <li>Вітер: {{ weather.windSpeed }} км/год</li>
-            <li>Оновлено: {{ weather.lastUpdated }}</li>
+{% if errors is defined and errors %}
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
         </ul>
-    {% endif %}
+    </div>
+{% endif %}
+
+{% if weather %}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ 'weather.result.title'|trans({'%city%': weather.city, '%country%': weather.country}) }}</h5>
+            <p class="card-text">{{ 'weather.result.temperature'|trans({'%value%': weather.temperature}) }}</p>
+            <p class="card-text">{{ 'weather.result.condition'|trans({'%value%': weather.condition}) }}</p>
+            <p class="card-text">{{ 'weather.result.humidity'|trans({'%value%': weather.humidity}) }}</p>
+            <p class="card-text">{{ 'weather.result.wind'|trans({'%value%': weather.windSpeed}) }}</p>
+            <p class="card-text"><small class="text-muted">{{ 'weather.result.updated'|trans({'%value%': weather.lastUpdated}) }}</small></p>
+        </div>
+    </div>
+{% elseif app.request.method == 'POST' and errors is empty %}
+    <p class="text-muted mt-3">{{ 'weather.no_data'|trans }}</p>
+{% endif %}
+
 {% endblock %}

@@ -1,0 +1,9 @@
+validation:
+    city:
+        not_blank: Please enter a city name.
+        type: City name must be a string.
+        digits_only: City name cannot consist of digits only.
+        too_short: City name must be at least {{ limit }} characters.
+        too_long: City name cannot exceed {{ limit }} characters.
+        no_russian_cities: Sorry, city "{{ city }}" is not available.
+    

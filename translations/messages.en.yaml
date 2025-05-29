@@ -1,0 +1,32 @@
+homepage:
+    title: 'Welcome to Weather App!'
+    welcome: 'Welcome to Weather App!'
+    description: 'This application shows current weather in cities around the world.'
+    search_link: 'Search for weather'
+navbar:
+    home: 'Home'
+    weather: 'Weather'
+weather:
+    title: 'Weather Search'
+    heading: 'Weather Search'
+    input:
+        placeholder: 'Enter city name'
+    button:
+        show: 'Show Weather'
+    result:
+        title: "Current weather in %city%, %country%"
+        temperature: "Temperature: %value%°C"
+        condition: "Condition: %value%"
+        humidity: "Humidity: %value%%"
+        wind: "Wind speed: %value% km/h"
+        updated: "Last updated: %value%"
+    no_data: "No weather data available."
+    api:
+        error:
+            city_not_found: City not found.
+            unexpected_status: "Unexpected API status code: %status%"
+            invalid_response: Invalid API response format.
+            unknown: Unknown API error.
+            transport: Connection issue with weather API.
+            failed: Failed to retrieve weather data.
+

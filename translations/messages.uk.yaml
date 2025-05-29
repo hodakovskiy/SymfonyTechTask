@@ -1,0 +1,30 @@
+homepage:
+    title: 'Ласкаво просимо до Weather App!'
+    welcome: 'Ласкаво просимо до Weather App!'
+    description: 'Ця програма показує поточну погоду в містах по всьому світу.'
+    search_link: 'Пошук погоди'
+navbar:
+    home: 'Головна'
+    weather: 'Погода'
+weather:
+    title: 'Пошук погоди'
+    heading: 'Пошук погоди'
+    input:
+        placeholder: 'Введіть назву міста'
+    button:
+        show: 'Показати погоду'
+    result:
+        title: "Поточна погода в %city%, %country%"
+        temperature: "Температура: %value%°C"
+        condition: "Умови: %value%"
+        humidity: "Вологість: %value%%"
+        wind: "Швидкість вітру: %value% км/год"
+        updated: "Оновлено: %value%"
+    no_data: "Немає даних про погоду."
+    api:
+        city_not_found: Місто не знайдено.
+        unexpected_status: "Несподіваний код відповіді API: %status%"
+        invalid_response: Невірний формат відповіді від API.
+        unknown: Невідома помилка API.
+        transport: Помилка з’єднання з погодним API.
+        failed: Не вдалося отримати дані про погоду.
