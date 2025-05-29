@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Головна
+{% block title %}
+    {{ 'homepage.title'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>Ласкаво просимо до Weather App!</h1>
-    <p>Цей застосунок показує поточну погоду по містах світу.</p>
+    <h1>{{ 'homepage.welcome'|trans }}</h1>
+    <p>{{ 'homepage.description'|trans }}</p>
 
-    <a href="{{ path('weather_show') }}">Перейти до пошуку погоди</a>
+    <a href="{{ path('weather_show') }}">{{ 'homepage.search_link'|trans }}</a>
 {% endblock %}

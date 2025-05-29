@@ -10,5 +10,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::IS_REPEATABLE)]
 class NoRussianCities extends Constraint
 {
-    public string $message = 'На жаль, місто "{{ city }}" недоступне.';
+    public string $message = 'validation.city.no_russian_cities';
 }

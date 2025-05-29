@@ -18,6 +18,7 @@ class NoRussianCitiesValidator extends ConstraintValidator
         if (in_array(mb_strtolower($value), $forbidden, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ city }}', $value)
+                ->setTranslationDomain('validators')
                 ->addViolation();
         }
     }

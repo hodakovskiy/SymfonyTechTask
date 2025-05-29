@@ -11,17 +11,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CitySearchDto
 {
-    #[Assert\NotBlank(message: 'Будь ласка, введіть назву міста.')]
-    #[Assert\Type(type: 'string', message: 'Назва міста має бути текстом.')]
+    #[Assert\NotBlank(message: 'validation.city.not_blank')]
+    #[Assert\Type(type: 'string', message: 'validation.city.type')]
     #[Assert\Regex(
         pattern: '/^(?!\d+$).+$/',
-        message: 'Назва міста не може складатися лише з цифр.'
+        message: 'validation.city.digits_only'
     )]
     #[Assert\Length(
         min: 2,
         max: 100,
-        minMessage: 'Назва міста має містити щонайменше {{ limit }} символи.',
-        maxMessage: 'Назва міста не може перевищувати {{ limit }} символів.'
+        minMessage: 'validation.city.too_short',
+        maxMessage: 'validation.city.too_long'
     )]
     #[NoRussianCities]
     public string $city = '';

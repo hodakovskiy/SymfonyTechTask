@@ -7,6 +7,7 @@ use App\Exception\WeatherApiException;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * WeatherService handles fetching and parsing weather data from external API.
@@ -16,6 +17,7 @@ class WeatherService
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly LoggerInterface $logger,
+        private readonly TranslatorInterface $translator,
         private readonly string $apiKey,
         private readonly string $apiUrl
     ) {}
@@ -36,24 +38,28 @@ class WeatherService
             $response = $this->httpClient->request('GET', $url);
 
             if ($response->getStatusCode() === 400) {
-                throw new WeatherApiException("City not found");
+                throw new WeatherApiException($this->translator->trans('weather.api.error.city_not_found'));
             }
 
             // Validate HTTP status
             if ($response->getStatusCode() !== 200) {
-                throw new WeatherApiException("Unexpected API status code: " . $response->getStatusCode());
+                throw new WeatherApiException(
+                    $this->translator->trans('weather.api.error.unexpected_status', [
+                        '%status%' => $response->getStatusCode()
+                    ])
+                );
             }
 
             // Decode response JSON
             try {
                 $data = $response->toArray();
             } catch (\Throwable $e) {
-                throw new WeatherApiException('Invalid API response format.');
+                throw new WeatherApiException($this->translator->trans('weather.api.error.invalid_response'));
             }
 
             // Handle API error message
             if (isset($data['error'])) {
-                $message = $data['error']['message'] ?? 'Unknown API error.';
+                $message = $data['error']['message'] ?? $this->translator->trans('weather.api.error.unknown');
                 throw new WeatherApiException($message);
             }
 
@@ -75,14 +81,15 @@ class WeatherService
         } catch (TransportExceptionInterface $e) {
             // Network/transport-level error
             $this->logger->error('Transport error: ' . $e->getMessage());
-            throw new WeatherApiException('Connection issue with weather API.');
+
+            throw new WeatherApiException($this->translator->trans('weather.api.error.transport'));
         } catch (WeatherApiException $e) {
             // Already handled above
             throw $e;
         } catch (\Throwable $e) {
             // Catch-all for any unexpected errors
             $this->logger->error('Unhandled exception: ' . $e->getMessage());
-            throw new WeatherApiException('Failed to retrieve weather data.');
+            throw new WeatherApiException($this->translator->trans('weather.api.error.failed'));
         }
     }
 }
